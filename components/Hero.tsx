@@ -18,7 +18,7 @@ const Hero: React.FC<HeroProps> = ({ onLoginSuccess, onBrowse, onPostRequest }) 
   const [videoSrc, setVideoSrc] = useState(HQ_VIDEO);
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center pt-20 pb-12 overflow-hidden">
+    <div className="relative min-h-screen flex items-center justify-center pt-36 pb-12 overflow-hidden">
       
       {/* CSS Styles for responsive video behavior */}
       <style>{`

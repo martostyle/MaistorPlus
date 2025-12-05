@@ -114,7 +114,7 @@ const App: React.FC = () => {
   );
 
   const renderSearch = () => (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 min-h-screen">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-24 min-h-screen">
       <div className="flex flex-col md:flex-row justify-between items-end mb-12">
         <div>
           <h2 className="text-4xl font-bold mb-4 drop-shadow-md text-white">Намерете Професионалист</h2>

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { User, Search, Briefcase, ShieldCheck, Sofa, CheckCircle, Clock, Star, X, Lock, Unlock, Box, CreditCard, Gift, Copy, ExternalLink, Crown } from 'lucide-react';
+import { User, Search, Briefcase, ShieldCheck, Sofa, CheckCircle, Clock, Star, X, Lock, Unlock, Box, CreditCard, Gift, Copy, ExternalLink, Crown, Landmark, AlertTriangle } from 'lucide-react';
 import GlassCard from './GlassCard';
 import GlassPillButton from './GlassPillButton';
 import { Project, SystemSettings, Offer } from '../types';
@@ -20,17 +20,12 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ projects, systemSetti
   const [showPlanner, setShowPlanner] = useState(false);
   
   // Club Membership Logic
-  // Condition 1: Active or Completed Project > 100 BGN
   const hasQualifyingProject = projects.some(p => p.amount >= 100 && (p.status === 'active' || p.status === 'completed'));
-  // Condition 2: Paid Subscription (Simulated)
   const [hasPaidSubscription, setHasPaidSubscription] = useState(false);
-  
-  // Combined Membership Status
   const isClubMember = hasQualifyingProject || hasPaidSubscription;
   const membershipExpiry = new Date();
   membershipExpiry.setFullYear(membershipExpiry.getFullYear() + 1);
 
-  // UI States for Club
   const [copiedCodeId, setCopiedCodeId] = useState<string | null>(null);
 
   const handleCopyCode = (code: string, id: string) => {
@@ -40,7 +35,6 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ projects, systemSetti
   };
 
   const handleSubscribe = () => {
-    // Simulate payment processing
     if (confirm("Потвърдете плащане на 20.00 лв за едногодишен абонамент?")) {
       setHasPaidSubscription(true);
       alert("Плащането е успешно! Добре дошли в Клуб Предимства.");
@@ -100,7 +94,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ projects, systemSetti
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 animate-fade-in">
       {/* Active Projects */}
       <div className="lg:col-span-2 space-y-6">
-        <h3 className="text-xl font-semibold mb-4 text-white/90">Активни Проекти</h3>
+        <h3 className="text-xl font-semibold mb-4 text-white/90">Активни & Завършени Проекти</h3>
         {projects.map(project => (
           <GlassCard key={project.id} className="flex flex-col gap-4 hover:border-white/30 transition-colors">
             <div className="flex justify-between items-start">
@@ -119,26 +113,33 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ projects, systemSetti
               </div>
               <div className="flex flex-col items-end gap-2">
                 <span className="font-bold text-2xl tracking-tight text-white">{project.amount} лв.</span>
-                {(project.amount > systemSettings.escrowThreshold && systemSettings.isEscrowMandatory) || project.escrowSecured ? (
-                  <span className="text-xs flex items-center gap-1 text-emerald-300 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
-                    <ShieldCheck className="w-3 h-3" /> Escrow Защитен
+                
+                {/* Status Badges */}
+                {project.hasWarranty ? (
+                  <span className="text-xs flex items-center gap-1 text-emerald-300 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20" title="Фонд Застраховка Качество">
+                    <Landmark className="w-3 h-3" /> Гаранция: 1 Година
                   </span>
                 ) : (
                   <span className="text-xs text-yellow-300 bg-yellow-500/10 px-3 py-1 rounded-full border border-yellow-500/20">
-                    Директно плащане
+                    Стандартен Договор
                   </span>
                 )}
               </div>
             </div>
             
             {/* Actions */}
-            <div className="flex justify-end pt-4 border-t border-white/10">
+            <div className="flex justify-end pt-4 border-t border-white/10 gap-3">
               {project.status === 'pending' && (
                 <button 
                   onClick={() => setComparingProject(project)}
                   className="text-sm bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 px-4 py-2 rounded-lg border border-cyan-500/30 transition-all flex items-center gap-2"
                 >
                   Виж Оферти ({project.offers?.length || 0})
+                </button>
+              )}
+              {project.status === 'completed' && project.hasWarranty && (
+                <button className="text-sm text-red-400 hover:text-red-300 px-4 py-2 flex items-center gap-2 hover:bg-red-500/10 rounded-lg transition-colors">
+                  <AlertTriangle size={14} /> Рекламация по Гаранция
                 </button>
               )}
             </div>
@@ -168,7 +169,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ projects, systemSetti
                  <p className="text-sm text-gray-200 mb-4 leading-relaxed">
                    Вие сте активен член! Насладете се на 10% отстъпки и 3D визуализация.
                  </p>
-                 <div className="text-xs text-amber-400 font-medium">Валиден до: {membershipExpiry.toLocaleDateString('bg-BG')}</div>
+                 <div className="text-xs text-amber-400 font-medium">Валиден до: {membershipExpiry.toLocaleDateString('bg-BG')}</p>
                </>
              ) : (
                <>
@@ -389,7 +390,7 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ projects, systemSetti
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 min-h-screen">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-24 min-h-screen">
       {comparingProject && renderOfferComparison(comparingProject)}
 
       {showPlanner && (

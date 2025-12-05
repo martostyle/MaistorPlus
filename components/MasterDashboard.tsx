@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { LayoutDashboard, FileText, Wallet, User, ShieldCheck, Plus, Image as ImageIcon, Star, Upload, Trash, Bell, Lock, Crown, ShoppingBag, PieChart, TrendingUp, X, Check, Box, FileCheck, Umbrella } from 'lucide-react';
+import { LayoutDashboard, FileText, Wallet, User, ShieldCheck, Plus, Image as ImageIcon, Star, Upload, Trash, Bell, Lock, Crown, ShoppingBag, PieChart, TrendingUp, X, Check, Box, FileCheck, Umbrella, Landmark } from 'lucide-react';
 import GlassCard from './GlassCard';
 import GlassPillButton from './GlassPillButton';
 import SubscriptionModal from './SubscriptionModal';
@@ -59,9 +59,6 @@ const MasterDashboard: React.FC<MasterDashboardProps> = () => {
   
   const handleOrderFurniture = (project: Project) => {
     if (!selectedProduct) return;
-    
-    // Calculate 10% commission on PARTNER price (or Retail, depending on business logic - usually Retail or Deal price)
-    // Let's assume commission is 10% of Partner Price for simplicity
     const commissionAmount = Math.round(selectedProduct.partnerPrice * 0.10);
     
     const newRecord: CommissionRecord = {
@@ -153,7 +150,7 @@ const MasterDashboard: React.FC<MasterDashboardProps> = () => {
 
   const renderTools = () => (
     <div className="animate-fade-in space-y-8">
-      {/* 3D Planner - Available for everyone (Basic) */}
+      {/* 3D Planner */}
       <GlassCard>
         <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
           <Box className="text-cyan-400" /> 3D Планиране на Проекта
@@ -176,7 +173,7 @@ const MasterDashboard: React.FC<MasterDashboardProps> = () => {
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-20 flex flex-col items-center justify-center text-center p-6">
             <Lock className="text-orange-400 mb-2" />
             <h4 className="text-white font-bold">Генератор на Документи</h4>
-            <p className="text-sm text-gray-400 mb-4">Автоматични оферти и протоколи само за ПЛЮС членове</p>
+            <p className="text-sm text-gray-400 mb-4">Автоматични оферти и договори само за ПЛЮС членове</p>
             <GlassPillButton onClick={() => setShowUpgradeModal(true)} primary className="!py-1 !px-4 !text-xs">Отключи</GlassPillButton>
           </div>
         )}
@@ -184,6 +181,12 @@ const MasterDashboard: React.FC<MasterDashboardProps> = () => {
         <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
           <FileCheck className="text-orange-400" /> Генератор на Документи
         </h3>
+        
+        <div className="bg-emerald-500/10 border border-emerald-500/20 p-3 rounded-lg mb-4 text-xs text-emerald-300 flex items-start gap-2">
+           <Landmark size={14} className="flex-shrink-0 mt-0.5" />
+           Всички генерирани договори за суми над 500 лв. автоматично включват клауза за 1 година гаранция съгласно правилата на Фонд "Застраховка Качество".
+        </div>
+
         <div className="grid md:grid-cols-3 gap-4">
           {DOC_TEMPLATES.map(doc => (
             <div key={doc.id} className="p-4 bg-white/5 rounded-xl border border-white/10 hover:border-orange-400/50 transition-colors cursor-pointer group">
@@ -506,7 +509,12 @@ const MasterDashboard: React.FC<MasterDashboardProps> = () => {
               )}
               
               <div className="flex justify-between items-center mb-6">
-                 <h3 className="font-bold text-lg text-white">Приходи от Услуги</h3>
+                 <div>
+                   <h3 className="font-bold text-lg text-white">Приходи от Услуги</h3>
+                   <p className="text-xs text-gray-500 mt-1">
+                     *Сумите са нето след приспадане на 5% такса Фонд Качество за проекти над 500 лв.
+                   </p>
+                 </div>
                  <span className="text-sm text-gray-400">Последна актуализация: Днес</span>
               </div>
               
@@ -565,10 +573,15 @@ const MasterDashboard: React.FC<MasterDashboardProps> = () => {
               <GlassCard key={proj.id} className="p-4 flex justify-between items-center hover:border-white/20 cursor-pointer">
                 <div>
                   <h4 className="font-bold text-white">{proj.title}</h4>
-                  <div className="mt-1">
+                  <div className="mt-1 flex items-center gap-2">
                     <span className={`text-[10px] font-bold tracking-wider px-2 py-0.5 rounded-full uppercase ${proj.status === 'active' ? 'bg-blue-500/10 text-blue-300 border border-blue-500/20' : 'bg-gray-500/10 text-gray-400 border border-gray-500/20'}`}>
                       {proj.status}
                     </span>
+                    {proj.hasWarranty && (
+                      <span className="text-[10px] text-emerald-400 border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 rounded-full flex items-center gap-1">
+                        <Landmark size={10} /> Фонд Качество
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="text-right">
@@ -584,7 +597,7 @@ const MasterDashboard: React.FC<MasterDashboardProps> = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 min-h-screen">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-24 min-h-screen">
       {showUpgradeModal && (
         <SubscriptionModal 
           onClose={() => setShowUpgradeModal(false)}

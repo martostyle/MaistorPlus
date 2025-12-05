@@ -2,7 +2,7 @@
 import React from 'react';
 import { Master } from '../types';
 import GlassCard from './GlassCard';
-import { Star, MapPin, CheckCircle, Calculator, Crown } from 'lucide-react';
+import { Star, MapPin, CheckCircle, Calculator, Crown, ShieldCheck } from 'lucide-react';
 
 interface MasterCardProps {
   master: Master;
@@ -53,6 +53,12 @@ const MasterCard: React.FC<MasterCardProps> = ({ master, onOpenCalculator }) => 
         <div className="flex items-center gap-1 text-gray-300 text-xs mb-4">
           <MapPin className="w-3 h-3" />
           {master.location}
+        </div>
+
+        {/* Warranty Badge - Applied to all masters as it's a platform rule for projects > 500 */}
+        <div className="mb-4 inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
+           <ShieldCheck size={14} className="text-emerald-400" />
+           <span className="text-xs font-bold text-emerald-300">1 Година Гаранция</span>
         </div>
 
         <p className="text-gray-200 text-sm line-clamp-2 mb-4 flex-grow">

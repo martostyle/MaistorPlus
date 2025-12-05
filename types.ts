@@ -111,7 +111,8 @@ export interface Project {
   masterName?: string;
   date: string;
   furnitureDiscountActive: boolean;
-  offers?: Offer[]; 
+  offers?: Offer[];
+  hasWarranty?: boolean; // New field for Quality Fund Logic
 }
 
 export interface Lead {

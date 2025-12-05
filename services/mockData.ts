@@ -107,6 +107,7 @@ export const CLIENT_PROJECTS: Project[] = [
     escrowSecured: true,
     date: '2023-10-15',
     furnitureDiscountActive: false,
+    hasWarranty: true, // > 500 BGN
     offers: [
       { 
         id: 'o1', 
@@ -115,7 +116,7 @@ export const CLIENT_PROJECTS: Project[] = [
         masterRating: 4.9, 
         price: 3200, 
         duration: '10 дни', 
-        comment: 'Включва къртене и извозване.', 
+        comment: 'Включва къртене и извозване. Гаранция по договор.', 
         status: 'pending' 
       },
       { 
@@ -138,7 +139,8 @@ export const CLIENT_PROJECTS: Project[] = [
     escrowSecured: false,
     masterName: 'Георги Димитров',
     date: '2023-09-01',
-    furnitureDiscountActive: false
+    furnitureDiscountActive: false,
+    hasWarranty: false // < 500 BGN
   }
 ];
 
@@ -189,7 +191,8 @@ export const MASTER_PROJECTS: Project[] = [
     amount: 12000,
     escrowSecured: true,
     date: '2023-10-20',
-    furnitureDiscountActive: false
+    furnitureDiscountActive: false,
+    hasWarranty: true
   },
   {
     id: 'mp2',
@@ -198,7 +201,8 @@ export const MASTER_PROJECTS: Project[] = [
     amount: 1800,
     escrowSecured: true,
     date: '2023-10-22',
-    furnitureDiscountActive: false
+    furnitureDiscountActive: false,
+    hasWarranty: true
   }
 ];
 
@@ -232,8 +236,8 @@ export const INSURANCE_OPTIONS: InsuranceOption[] = [
 
 export const DOC_TEMPLATES: DocumentTemplate[] = [
   { id: 't1', title: 'Професионална Оферта', type: 'offer', description: 'Шаблон за изготвяне на детайлна оферта с включени етапи.' },
-  { id: 't2', title: 'Протокол за Приемане (Ескроу)', type: 'protocol', description: 'Официален протокол за предаване на етап, свързан с освобождаване на средства.' },
-  { id: 't3', title: 'Договор за СМР', type: 'contract', description: 'Стандартен договор за строително-монтажни работи.' }
+  { id: 't2', title: 'Протокол за Приемане', type: 'protocol', description: 'Официален протокол за предаване на работа (задължителен за гаранция).' },
+  { id: 't3', title: 'Договор за СМР + Гаранция', type: 'contract', description: 'Договор с включена 1 година гаранционна клауза (Фонд Качество).' }
 ];
 
 export const MOCK_PARTNER_COUPONS: PartnerCoupon[] = [
