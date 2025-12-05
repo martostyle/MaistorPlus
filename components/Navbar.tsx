@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { Menu, X, Hammer, ShieldCheck, User, LayoutDashboard } from 'lucide-react';
+import { Menu, X, ShieldCheck, User, LayoutDashboard } from 'lucide-react';
 import { ViewState } from '../types';
 
 interface NavbarProps {
@@ -11,21 +12,20 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onChangeView }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed w-full z-50 top-0 left-0 border-b border-white/10 bg-[#0f172a]/80 backdrop-blur-md">
+    <nav className="fixed w-full z-50 top-0 left-0 bg-black border-b border-white/15 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.8)] transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-28">
           
           {/* Logo */}
           <div 
-            className="flex items-center cursor-pointer gap-2"
+            className="flex items-center cursor-pointer"
             onClick={() => onChangeView(ViewState.HOME)}
           >
-            <div className="bg-gradient-to-tr from-blue-500 to-cyan-400 p-2 rounded-lg shadow-lg shadow-blue-500/20">
-              <Hammer className="h-6 w-6 text-white" />
-            </div>
-            <span className="text-xl font-bold tracking-tight text-white">
-              Майстор <span className="text-cyan-400">Плюс</span>
-            </span>
+            <img 
+              src="https://i.imgur.com/LlEKJyG.jpeg" 
+              alt="Maistor Plus Logo" 
+              className="h-24 w-auto object-contain rounded-lg hover:opacity-90 transition-opacity"
+            />
           </div>
 
           {/* Desktop Menu */}
@@ -67,7 +67,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onChangeView }) => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden glass-panel border-t-0">
+        <div className="md:hidden bg-black border-t border-white/10">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <button onClick={() => { onChangeView(ViewState.SEARCH); setIsOpen(false); }} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white/10">Намери Майстор</button>
             <button onClick={() => { onChangeView(ViewState.DASHBOARD_CLIENT); setIsOpen(false); }} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white/10">Вход за Клиенти</button>
