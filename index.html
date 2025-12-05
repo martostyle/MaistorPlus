@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="bg">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Maistor Plus - Майстор Плюс</title>
+    <meta name="description" content="Сигурност и качество за вашия ремонт" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              serif: ['"Playfair Display"', 'serif'],
+            },
+            animation: {
+              'blob': 'blob 7s infinite',
+              'aurora': 'aurora 20s linear infinite',
+            },
+            keyframes: {
+              blob: {
+                '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                '100%': { transform: 'translate(0px, 0px) scale(1)' },
+              },
+              aurora: {
+                '0%': { backgroundPosition: '0% 50%' },
+                '50%': { backgroundPosition: '100% 50%' },
+                '100%': { backgroundPosition: '0% 50%' },
+              }
+            },
+            colors: {
+              glass: {
+                100: 'rgba(255, 255, 255, 0.1)',
+                200: 'rgba(255, 255, 255, 0.2)',
+                300: 'rgba(255, 255, 255, 0.3)',
+                dark: 'rgba(15, 23, 42, 0.6)',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab, #1e3a8a);
+        background-size: 400% 400%;
+        animation: aurora 15s ease infinite;
+        color: white;
+        min-height: 100vh;
+      }
+      
+      /* Thick Glass Effect */
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+      }
+
+      /* Inner Gloss for Buttons/Inputs */
+      .glass-gloss {
+        background: linear-gradient(
+          135deg, 
+          rgba(255, 255, 255, 0.1) 0%, 
+          rgba(255, 255, 255, 0.05) 100%
+        );
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      .text-glow {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/client": "https://aistudiocdn.com/react-dom@^19.2.1/client",
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.1",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "recharts": "https://aistudiocdn.com/recharts@^3.5.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./index.tsx"></script>
+  </body>
+</html>
