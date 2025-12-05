@@ -1,9 +1,10 @@
 
 import React, { useState } from 'react';
-import { LayoutDashboard, FileText, Wallet, User, ShieldCheck, Plus, Image as ImageIcon, Star, Upload, Trash, Bell, Lock, Crown, ShoppingBag, PieChart, TrendingUp, X, Check, Box, FileCheck, Umbrella, Landmark } from 'lucide-react';
+import { LayoutDashboard, FileText, Wallet, User, ShieldCheck, Plus, Image as ImageIcon, Star, Upload, Trash, Bell, Lock, Crown, ShoppingBag, PieChart, TrendingUp, X, Check, Box, FileCheck, Umbrella, Landmark, MessageSquare, Phone } from 'lucide-react';
 import GlassCard from './GlassCard';
 import GlassPillButton from './GlassPillButton';
 import SubscriptionModal from './SubscriptionModal';
+import ChatSystem from './ChatSystem';
 import { INCOME_DATA, MASTER_PROJECTS, MOCK_LEADS, MOCK_FURNITURE_CATALOG, MOCK_COMMISSIONS, INSURANCE_OPTIONS, DOC_TEMPLATES } from '../services/mockData';
 import { Master, GalleryItem, Lead, ServiceItem, SubscriptionTier, FurnitureItem, CommissionRecord, Project } from '../types';
 import { 
@@ -20,7 +21,7 @@ interface MasterDashboardProps {
   master?: Master;
 }
 
-type DashboardTab = 'requests' | 'projects' | 'finance' | 'profile' | 'affiliate' | 'tools';
+type DashboardTab = 'requests' | 'projects' | 'finance' | 'profile' | 'affiliate' | 'tools' | 'messages';
 
 const MasterDashboard: React.FC<MasterDashboardProps> = () => {
   const [activeTab, setActiveTab] = useState<DashboardTab>('requests');
@@ -86,6 +87,14 @@ const MasterDashboard: React.FC<MasterDashboardProps> = () => {
           <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse"></div>
         </div>
         <span className="font-medium">Нови Заявки</span>
+      </button>
+
+      <button 
+        onClick={() => setActiveTab('messages')}
+        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${activeTab === 'messages' ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+      >
+        <MessageSquare size={20} />
+        <span className="font-medium">Съобщения</span>
       </button>
 
       <button 
@@ -406,6 +415,10 @@ const MasterDashboard: React.FC<MasterDashboardProps> = () => {
                         <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
                         <span>{lead.date}</span>
                      </div>
+                     {/* Public Phone Number on Lead */}
+                     <div className="flex items-center gap-2 text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1 rounded-lg w-fit mt-2 border border-emerald-500/20">
+                       <Phone size={14} /> {lead.phoneNumber || '+359 8XX XXX XXX'}
+                     </div>
                    </div>
                    <div className="text-right">
                       <span className="block text-sm font-bold text-orange-400 mb-1">{lead.budget}</span>
@@ -494,6 +507,7 @@ const MasterDashboard: React.FC<MasterDashboardProps> = () => {
     switch(activeTab) {
       case 'profile': return renderProfileSettings();
       case 'requests': return renderLeads();
+      case 'messages': return <ChatSystem />;
       case 'affiliate': return renderAffiliate();
       case 'tools': return renderTools();
       case 'finance': return (

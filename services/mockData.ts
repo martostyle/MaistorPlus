@@ -1,11 +1,12 @@
 
-import { Master, Project, Lead, FurnitureItem, CommissionRecord, InsuranceOption, DocumentTemplate, PartnerCoupon } from '../types';
+import { Master, Project, Lead, FurnitureItem, CommissionRecord, InsuranceOption, DocumentTemplate, PartnerCoupon, ChatSession } from '../types';
 
 export const MOCK_MASTERS: Master[] = [
   {
     id: '1',
     name: 'Иван Петров',
     email: 'ivan.petrov@example.com',
+    phoneNumber: '+359 888 123 456',
     specialty: 'ВиК Услуги',
     location: 'София',
     rating: 4.9,
@@ -33,6 +34,7 @@ export const MOCK_MASTERS: Master[] = [
     id: '2',
     name: 'Строителна Бригада "Основа"',
     email: 'osnova@example.com',
+    phoneNumber: '+359 899 987 654',
     specialty: 'Груб Строеж & Саниране',
     location: 'Пловдив',
     rating: 4.7,
@@ -55,6 +57,7 @@ export const MOCK_MASTERS: Master[] = [
     id: '3',
     name: 'Георги Димитров',
     email: 'georgi.dimitrov@example.com',
+    phoneNumber: '+359 877 555 333',
     specialty: 'Електротехник',
     location: 'Варна',
     rating: 5.0,
@@ -78,6 +81,7 @@ export const MOCK_MASTERS: Master[] = [
     id: '4',
     name: 'Арт Дизайн Студио',
     email: 'design@example.com',
+    phoneNumber: '+359 888 000 111',
     specialty: 'Интериорен Дизайн',
     location: 'София',
     rating: 4.8,
@@ -153,6 +157,7 @@ export const MOCK_LEADS: Lead[] = [
     budget: 'Голям (> 5000 лв)',
     description: 'Търся бригада за пренареждане на керемиди и смяна на улуци.',
     date: 'Преди 2 часа',
+    phoneNumber: '+359 877 123 456',
     isHighPriority: true,
     isPlusOnly: true, // Only for PLUS subscribers
     imagesCount: 5
@@ -165,6 +170,7 @@ export const MOCK_LEADS: Lead[] = [
     budget: 'Малък',
     description: 'Смяна на стар бойлер с нов 80л.',
     date: 'Преди 4 часа',
+    phoneNumber: '+359 888 999 888',
     isHighPriority: false,
     isPlusOnly: false,
     imagesCount: 2
@@ -177,6 +183,7 @@ export const MOCK_LEADS: Lead[] = [
     budget: 'Среден',
     description: 'Нуждаем се от нови контакти и LAN мрежа за 10 работни места.',
     date: 'Вчера',
+    phoneNumber: '+359 899 111 222',
     isHighPriority: true,
     isPlusOnly: true, // Only for PLUS subscribers
     imagesCount: 0
@@ -245,4 +252,32 @@ export const MOCK_PARTNER_COUPONS: PartnerCoupon[] = [
   { id: 'pc2', partnerName: 'Практикер', website: 'praktiker.bg', discountPercentage: 10, code: 'MPLUS2024', category: 'Строителство', logoUrl: 'https://via.placeholder.com/50' },
   { id: 'pc3', partnerName: 'Баня Стил', website: 'banyastyle.com', discountPercentage: 10, code: 'BATH10', category: 'Баня', logoUrl: 'https://via.placeholder.com/50' },
   { id: 'pc4', partnerName: 'CarpetMax', website: 'carpetmax.bg', discountPercentage: 10, code: 'FLOOR10', category: 'Настилки', logoUrl: 'https://via.placeholder.com/50' },
+];
+
+export const MOCK_CHATS: ChatSession[] = [
+  {
+    id: 'c1',
+    partnerId: 'u2',
+    partnerName: 'Мария Иванова (Клиент)',
+    partnerAvatar: 'https://picsum.photos/200/200?random=30',
+    lastMessage: 'Кога можете да дойдете за оглед?',
+    unreadCount: 1,
+    messages: [
+      { id: 'm1', senderId: 'u2', text: 'Здравейте, интересувам се от офертата ви.', timestamp: '10:30' },
+      { id: 'm2', senderId: 'me', text: 'Здравейте! Мога да мина утре.', timestamp: '10:35' },
+      { id: 'm3', senderId: 'u2', text: 'Кога можете да дойдете за оглед?', timestamp: '10:36' }
+    ]
+  },
+  {
+    id: 'c2',
+    partnerId: 'u3',
+    partnerName: 'Петър Стоянов',
+    partnerAvatar: 'https://picsum.photos/200/200?random=31',
+    lastMessage: 'Разбрахме се.',
+    unreadCount: 0,
+    messages: [
+      { id: 'm1', senderId: 'me', text: 'Цената е крайна.', timestamp: 'Вчера' },
+      { id: 'm2', senderId: 'u3', text: 'Разбрахме се.', timestamp: 'Вчера' }
+    ]
+  }
 ];

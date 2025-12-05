@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react';
-import { X, Scale, Shield, FileText, Landmark } from 'lucide-react';
+import { X, Scale, Shield, FileText, Landmark, AlertTriangle } from 'lucide-react';
 import GlassCard from './GlassCard';
 
-type LegalTab = 'terms' | 'escrow' | 'liability' | 'quality_fund';
+type LegalTab = 'terms' | 'escrow' | 'liability' | 'quality_fund' | 'contract_rules';
 
 interface LegalModalsProps {
   initialTab?: LegalTab;
@@ -62,12 +62,27 @@ const LegalModals: React.FC<LegalModalsProps> = ({ initialTab = 'terms', onClose
             <p>4. <strong>Лимити:</strong> Обезщетението не може да надвишава стойността на труда по договора.</p>
           </div>
         );
+      case 'contract_rules':
+        return (
+          <div className="space-y-4 text-gray-300">
+             <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+               <AlertTriangle className="text-amber-400" /> Рискове при "Лично Договаряне"
+             </h3>
+             <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg text-amber-200 text-sm mb-4">
+               Внимание: Плащания "на ръка" или по лична банкова сметка са извън контрола на платформата.
+             </div>
+             <p>1. <strong>Без Защита:</strong> Ако платите директно на майстора извън Ескроу системата, ние не можем да възстановим парите ви при измама или лошо изпълнение.</p>
+             <p>2. <strong>Без Гаранция от Фонда:</strong> Фонд "Застраховка Качество" покрива само проекти, минали през системата и платили съответната такса.</p>
+             <p>3. <strong>Липса на Доказателства:</strong> При устни договорки е изключително трудно да докажете какво е било договорено при евентуален съдебен спор.</p>
+             <p>4. <strong>Препоръка:</strong> Винаги използвайте вградения чат и Ескроу системата за ваша сигурност.</p>
+          </div>
+        )
     }
   };
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
-      <GlassCard className="w-full max-w-4xl max-h-[85vh] flex flex-col !bg-[#0f172a] !border-white/20 shadow-2xl relative">
+      <GlassCard className="w-full max-w-5xl max-h-[85vh] flex flex-col !bg-[#0f172a] !border-white/20 shadow-2xl relative">
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
           <X size={24} />
         </button>
@@ -90,6 +105,12 @@ const LegalModals: React.FC<LegalModalsProps> = ({ initialTab = 'terms', onClose
             className={`flex items-center gap-2 px-6 py-4 border-b-2 transition-colors whitespace-nowrap ${activeTab === 'quality_fund' ? 'border-emerald-500 text-white' : 'border-transparent text-gray-400 hover:text-white'}`}
           >
             <Landmark size={18} /> Фонд Качество
+          </button>
+          <button 
+            onClick={() => setActiveTab('contract_rules')}
+            className={`flex items-center gap-2 px-6 py-4 border-b-2 transition-colors whitespace-nowrap ${activeTab === 'contract_rules' ? 'border-amber-500 text-white' : 'border-transparent text-gray-400 hover:text-white'}`}
+          >
+            <AlertTriangle size={18} /> Правила за Договаряне
           </button>
           <button 
             onClick={() => setActiveTab('liability')}

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Master } from '../types';
 import GlassCard from './GlassCard';
-import { Star, MapPin, CheckCircle, Calculator, Crown, ShieldCheck } from 'lucide-react';
+import { Star, MapPin, CheckCircle, Calculator, Crown, ShieldCheck, Phone } from 'lucide-react';
 
 interface MasterCardProps {
   master: Master;
@@ -50,13 +50,19 @@ const MasterCard: React.FC<MasterCardProps> = ({ master, onOpenCalculator }) => 
         <h3 className="text-lg font-bold text-white mb-1 drop-shadow-md">{master.name}</h3>
         <p className={`${master.subscriptionTier === 'plus' ? 'text-orange-400' : 'text-cyan-400'} text-sm font-medium mb-2`}>{master.specialty}</p>
         
-        <div className="flex items-center gap-1 text-gray-300 text-xs mb-4">
-          <MapPin className="w-3 h-3" />
-          {master.location}
+        <div className="flex flex-col gap-1 mb-4">
+          <div className="flex items-center gap-2 text-gray-300 text-xs">
+            <MapPin className="w-3 h-3" />
+            {master.location}
+          </div>
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold mt-1">
+             <Phone className="w-3 h-3" />
+             {master.phoneNumber || '+359 8XX XXX XXX'}
+          </div>
         </div>
 
         {/* Warranty Badge - Applied to all masters as it's a platform rule for projects > 500 */}
-        <div className="mb-4 inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
+        <div className="mb-4 inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-lg w-fit">
            <ShieldCheck size={14} className="text-emerald-400" />
            <span className="text-xs font-bold text-emerald-300">1 Година Гаранция</span>
         </div>

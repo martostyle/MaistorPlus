@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { User, Hammer, ArrowRight, Mail, Lock, Building2, Chrome } from 'lucide-react';
+import { User, Hammer, ArrowRight, Mail, Lock, Building2, Chrome, Phone, CheckSquare } from 'lucide-react';
 import GlassCard from './GlassCard';
 import GlassPillButton from './GlassPillButton';
 
@@ -15,13 +15,19 @@ const AuthCard: React.FC<AuthCardProps> = ({ onLogin }) => {
   // Form State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState(''); // New mandatory field
   const [eik, setEik] = useState('');
   const [name, setName] = useState('');
+  const [gdprConsent, setGdprConsent] = useState(false); // New consent
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isLogin && !gdprConsent) {
+      alert("Моля, приемете условията за GDPR и видимост на телефона.");
+      return;
+    }
     // Simulate auth logic
-    onLogin(activeRole, { email, name, eik });
+    onLogin(activeRole, { email, name, eik, phone });
   };
 
   return (
@@ -127,6 +133,20 @@ const AuthCard: React.FC<AuthCardProps> = ({ onLogin }) => {
             />
           </div>
 
+          {!isLogin && (
+            <div className="relative group animate-fade-in">
+               <Phone className="absolute left-4 top-3.5 h-5 w-5 text-gray-300 group-focus-within:text-cyan-300 transition-colors" />
+               <input 
+                 type="tel" 
+                 placeholder="Телефонен номер (Задължително)" 
+                 value={phone}
+                 required
+                 onChange={(e) => setPhone(e.target.value)}
+                 className="w-full bg-white/10 border border-white/20 rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-300 focus:outline-none focus:bg-white/20 focus:border-cyan-400/50 transition-all shadow-lg backdrop-blur-md"
+               />
+            </div>
+          )}
+
           {/* Verification Fields for Master Registration */}
           {!isLogin && activeRole === 'master' && (
             <div className="relative group animate-fade-in">
@@ -141,6 +161,21 @@ const AuthCard: React.FC<AuthCardProps> = ({ onLogin }) => {
               />
               <span className="absolute right-4 top-3.5 text-xs text-cyan-300 font-medium">*Верификация</span>
             </div>
+          )}
+
+          {/* GDPR Consent */}
+          {!isLogin && (
+            <label className="flex items-start gap-3 mt-4 cursor-pointer text-sm text-gray-300 hover:text-white transition-colors">
+              <input 
+                type="checkbox" 
+                checked={gdprConsent}
+                onChange={(e) => setGdprConsent(e.target.checked)}
+                className="mt-1 w-4 h-4 rounded border-gray-500 text-cyan-500 focus:ring-cyan-500 bg-white/10"
+              />
+              <span className="leading-tight text-xs">
+                Съгласен съм, че моят телефонен номер ще бъде <strong>публично видим</strong> за регистрирани потребители с цел улесняване на комуникацията, съгласно Политиката за Поверителност и GDPR.
+              </span>
+            </label>
           )}
 
           <GlassPillButton primary className="w-full mt-6" type="submit">

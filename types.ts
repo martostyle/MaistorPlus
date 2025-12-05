@@ -69,6 +69,7 @@ export interface Master {
   id: string;
   name: string;
   email: string;
+  phoneNumber: string; // New Public Field
   specialty: string;
   location: string;
   rating: number;
@@ -123,9 +124,29 @@ export interface Lead {
   budget: string;
   description: string;
   date: string;
+  phoneNumber?: string; // New Public Field
   isHighPriority?: boolean; 
   isPlusOnly?: boolean; // New field: Visible only to PLUS members
   imagesCount: number;
+}
+
+export interface ChatMessage {
+  id: string;
+  senderId: string;
+  text: string;
+  timestamp: string;
+  isSystemMessage?: boolean; // For warnings/disclaimers
+  isRiskFlagged?: boolean; // If monitoring detected keywords
+}
+
+export interface ChatSession {
+  id: string;
+  partnerId: string;
+  partnerName: string;
+  partnerAvatar: string;
+  lastMessage: string;
+  unreadCount: number;
+  messages: ChatMessage[];
 }
 
 export interface StatItem {

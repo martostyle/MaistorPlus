@@ -1,8 +1,9 @@
 
 import React, { useState } from 'react';
-import { User, Search, Briefcase, ShieldCheck, Sofa, CheckCircle, Clock, Star, X, Lock, Unlock, Box, CreditCard, Gift, Copy, ExternalLink, Crown, Landmark, AlertTriangle } from 'lucide-react';
+import { User, Search, Briefcase, ShieldCheck, Sofa, CheckCircle, Clock, Star, X, Lock, Unlock, Box, CreditCard, Gift, Copy, ExternalLink, Crown, Landmark, AlertTriangle, MessageSquare } from 'lucide-react';
 import GlassCard from './GlassCard';
 import GlassPillButton from './GlassPillButton';
+import ChatSystem from './ChatSystem';
 import { Project, SystemSettings, Offer } from '../types';
 import { MOCK_PARTNER_COUPONS } from '../services/mockData';
 
@@ -12,7 +13,7 @@ interface ClientDashboardProps {
   onPostRequest: () => void;
 }
 
-type ClientTab = 'dashboard' | 'club' | 'planning';
+type ClientTab = 'dashboard' | 'club' | 'planning' | 'messages';
 
 const ClientDashboard: React.FC<ClientDashboardProps> = ({ projects, systemSettings, onPostRequest }) => {
   const [activeTab, setActiveTab] = useState<ClientTab>('dashboard');
@@ -439,11 +440,18 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ projects, systemSetti
         >
           <Box size={16} /> 3D Планиране
         </button>
+        <button 
+          onClick={() => setActiveTab('messages')}
+          className={`px-6 py-2 rounded-full font-medium transition-all flex items-center gap-2 ${activeTab === 'messages' ? 'bg-cyan-500 text-white' : 'bg-white/5 text-gray-400 hover:text-white'}`}
+        >
+          <MessageSquare size={16} /> Съобщения
+        </button>
       </div>
 
       {activeTab === 'dashboard' && renderDashboard()}
       {activeTab === 'club' && renderClubBenefits()}
       {activeTab === 'planning' && renderPlanning()}
+      {activeTab === 'messages' && <ChatSystem />}
 
     </div>
   );
