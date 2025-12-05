@@ -40,11 +40,12 @@ const Hero: React.FC<HeroProps> = ({ onLoginSuccess, onBrowse, onPostRequest }) 
           autoPlay 
           muted 
           playsInline
+          className="hero-bg-video"
           onError={() => {
             console.warn("HQ Video failed to load, switching to fallback.");
             setVideoSrc(FALLBACK_VIDEO);
           }}
-          className="hero-bg-video"
+          // No poster attribute to prevent static image flash on load
         />
         
         {/* Top Header Fade - Blends the header into the video so it doesn't look cut off */}
@@ -106,6 +107,11 @@ const Hero: React.FC<HeroProps> = ({ onLoginSuccess, onBrowse, onPostRequest }) 
       
       {/* Bottom Gradient Fade for smooth transition to content if any - also changed to black */}
       <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none z-10"></div>
+
+      {/* Footer Attribution Text - Increased size and clickable link */}
+      <div className="absolute bottom-8 left-8 z-20 text-white/50 text-lg md:text-2xl font-light tracking-wide drop-shadow-md">
+          Със съдействие на <a href="https://realistic-vision.com" target="_blank" rel="noopener noreferrer" className="font-serif font-bold text-white/80 hover:text-white transition-colors cursor-pointer border-b border-white/20 hover:border-white">Realistic-Vision.com</a> визуални и дигитални решения за всички.
+      </div>
     </div>
   );
 };

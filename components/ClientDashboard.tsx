@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { User, Search, Briefcase, ShieldCheck, Sofa, CheckCircle, Clock, Star, X, Lock, Unlock, Box, CreditCard, Gift, Copy, ExternalLink, Crown, Landmark, AlertTriangle, MessageSquare } from 'lucide-react';
+import { User, Search, Briefcase, ShieldCheck, Sofa, CheckCircle, Clock, Star, X, Lock, Unlock, Box, CreditCard, Gift, Copy, ExternalLink, Crown, Landmark, AlertTriangle, MessageSquare, Maximize } from 'lucide-react';
 import GlassCard from './GlassCard';
 import GlassPillButton from './GlassPillButton';
 import ChatSystem from './ChatSystem';
@@ -370,20 +370,29 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ projects, systemSetti
       ) : (
         <GlassCard className="h-full w-full !p-0 overflow-hidden relative flex flex-col">
            <div className="p-4 border-b border-white/10 flex justify-between items-center bg-black/40">
-             <h3 className="font-bold text-white flex items-center gap-2">
-               <Box className="text-cyan-400" /> 3D Project Visualizer
-             </h3>
-             <span className="text-xs text-green-400 flex items-center gap-1">
-               <CheckCircle size={12} /> Лиценз Активен
-             </span>
+             <div className="flex items-center gap-3">
+               <h3 className="font-bold text-white flex items-center gap-2">
+                 <Box className="text-cyan-400" /> 3D Project Visualizer
+               </h3>
+               <span className="text-xs text-green-400 flex items-center gap-1">
+                 <CheckCircle size={12} /> Лиценз Активен
+               </span>
+             </div>
+             <GlassPillButton 
+               onClick={() => window.open("https://real-time-ray-tracing-286722143087.us-west1.run.app", "_blank")}
+               className="!py-1 !px-3 !text-xs"
+               icon={Maximize}
+             >
+               На Цял Екран
+             </GlassPillButton>
            </div>
-           <div className="flex-grow bg-gray-900 relative flex items-center justify-center">
-              {/* iFrame Simulation */}
-              <div className="text-center text-gray-500">
-                <Box size={64} className="mx-auto mb-4 opacity-30" />
-                <p>Интеграция на външен 3D софтуер (iFrame)</p>
-                <p className="text-sm mt-2">Зареждане на интерфейс...</p>
-              </div>
+           <div className="flex-grow bg-gray-900 relative overflow-hidden">
+              <iframe 
+                src="https://real-time-ray-tracing-286722143087.us-west1.run.app"
+                className="w-full h-full border-0"
+                title="3D Project Visualizer"
+                allowFullScreen
+              />
            </div>
         </GlassCard>
       )}
@@ -399,10 +408,12 @@ const ClientDashboard: React.FC<ClientDashboardProps> = ({ projects, systemSetti
            <GlassCard className="w-full max-w-6xl h-[80vh] flex flex-col !bg-[#0f172a] relative">
               <button onClick={() => setShowPlanner(false)} className="absolute top-4 right-4 text-white z-20"><X /></button>
               <div className="flex-grow bg-gray-900 rounded-lg flex items-center justify-center relative overflow-hidden">
-                 <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-500">
-                    <Box size={64} className="mb-4 opacity-50" />
-                    <p className="text-lg">Интерактивен 3D Планер се зарежда...</p>
-                 </div>
+                 <iframe 
+                   src="https://real-time-ray-tracing-286722143087.us-west1.run.app"
+                   className="w-full h-full border-0"
+                   title="3D Project Visualizer"
+                   allowFullScreen
+                 />
               </div>
            </GlassCard>
         </div>

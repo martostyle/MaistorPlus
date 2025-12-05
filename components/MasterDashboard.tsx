@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { LayoutDashboard, FileText, Wallet, User, ShieldCheck, Plus, Image as ImageIcon, Star, Upload, Trash, Bell, Lock, Crown, ShoppingBag, PieChart, TrendingUp, X, Check, Box, FileCheck, Umbrella, Landmark, MessageSquare, Phone } from 'lucide-react';
+import { LayoutDashboard, FileText, Wallet, User, ShieldCheck, Plus, Image as ImageIcon, Star, Upload, Trash, Bell, Lock, Crown, ShoppingBag, PieChart, TrendingUp, X, Check, Box, FileCheck, Umbrella, Landmark, MessageSquare, Phone, Maximize } from 'lucide-react';
 import GlassCard from './GlassCard';
 import GlassPillButton from './GlassPillButton';
 import SubscriptionModal from './SubscriptionModal';
@@ -161,18 +161,28 @@ const MasterDashboard: React.FC<MasterDashboardProps> = () => {
     <div className="animate-fade-in space-y-8">
       {/* 3D Planner */}
       <GlassCard>
-        <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-          <Box className="text-cyan-400" /> 3D Планиране на Проекта
-        </h3>
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-xl font-bold text-white flex items-center gap-2">
+            <Box className="text-cyan-400" /> 3D Планиране на Проекта
+          </h3>
+          <GlassPillButton 
+            onClick={() => window.open("https://real-time-ray-tracing-286722143087.us-west1.run.app", "_blank")}
+            className="!py-1 !px-3 !text-xs"
+            icon={Maximize}
+          >
+            На Цял Екран
+          </GlassPillButton>
+        </div>
         <p className="text-sm text-gray-400 mb-6">
           Визуализирайте идеите си или скицирайте план на помещението директно в браузъра.
         </p>
         <div className="aspect-video w-full bg-black/40 rounded-xl overflow-hidden border border-white/10 relative">
-           <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-500">
-             <Box size={48} className="mb-2 opacity-50" />
-             <p>Интерактивен 3D Планер (iFrame)</p>
-             <GlassPillButton className="mt-4 !py-2 !text-sm">Стартирай</GlassPillButton>
-           </div>
+           <iframe 
+             src="https://real-time-ray-tracing-286722143087.us-west1.run.app"
+             className="w-full h-full border-0"
+             title="3D Planner"
+             allowFullScreen
+           />
         </div>
       </GlassCard>
 
